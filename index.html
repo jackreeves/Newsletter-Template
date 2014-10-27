@@ -1,0 +1,530 @@
+%%[ Var @language, @country, @subject, @emailaddr,
+
+/* ########## EDIT THIS PARAMETER ########### */
+/* ### */                              /* ### */
+/* ### */  set @deploymentId = 201419  /* ### */
+/* ### */                              /* ### */
+/* ############ FORMAT: YYYYXX ############## */
+
+set @emailaddr = Lowercase(emailaddr)
+set @language = Lowercase(LANG_PREF)
+set @country = Lowercase(COUNTRY)
+SET @portfoliourl = "https://image.e.oakley.com/lib/fe8c15707062037472/m/2/"
+
+set @year = Substring(@deploymentId, 1, 4)
+set @number= Substring(@deploymentId, 5, 6)
+set @contentAreaPath = Concat("my contents\Direct Sales\", @year, "\", @number, "\")
+
+
+/* ##########CHANGE VALID COUNTRYS TO VALID 2 LETTER CODES ########### */
+
+if @country == "belgium" then
+set @country = "be"
+endif
+
+if @country == "denmark" then
+set @country = "dk"
+endif
+
+if @country == "germany" then
+set @country = "de"
+endif
+
+if @country == "spain" then
+set @country = "es"
+endif
+
+if @country == "france" then
+set @country = "fr"
+endif
+
+if @country == "ireland" then
+set @country = "ie"
+endif
+
+if @country == "italy" then
+set @country = "it"
+endif
+
+if @country == "luxembourg" then
+set @country = "lu"
+endif
+
+if @country == "netherlands" then
+set @country = "nl"
+endif
+
+if @country == "norway" then
+set @country = "no"
+endif
+
+if @country == "austria" then
+set @country = "at"
+endif
+
+if @country == "poland" then
+set @country = "pl"
+endif
+
+if @country == "portugal" then
+set @country = "pt"
+endif
+
+if @country == "switzerland" then
+set @country = "ch"
+endif
+
+if @country == "sweden" then
+set @country = "se"
+endif
+
+if @country == "united kingdom" then
+set @country = "uk"
+endif
+
+if @country == "gb" then
+set @country = "uk"
+endif
+
+/* ########## SET ANY OTHER CODES TO UK ########### */
+
+if @country != "at" and
+@country != "be" and
+@country != "dk" and
+@country != "fi" and
+@country != "fr" and
+@country != "de" and
+@country != "ie" and
+@country != "it" and
+@country != "lu" and
+@country != "nl" and
+@country != "no" and
+@country != "pl" and
+@country != "pt" and
+@country != "es" and
+@country != "se" and
+@country != "ch" and
+@country != "uk" then
+set @country = "uk"
+endif
+
+
+/* ########## CHANGE VALID LANGUAGES TO VALID 2 LETTER CODES ########### */
+
+if @language == "english" then
+set @language = "en"
+endif
+
+if @language == "french" then
+set @language = "fr"
+endif
+
+if @language == "german" then
+set @language = "de"
+endif
+
+if @language == "spanish" then
+set @language = "es"
+endif
+
+if @language == "italian" then
+set @language = "it"
+endif
+
+
+/* ########## CHANGE EMPTY VALUES TO UK & ENGLISH ########### */
+
+if Empty(@language) and Empty(@country) then
+    set @country = "uk"
+    set @language = "en"
+endif
+
+if Empty(@country) then
+    set @country = "uk"
+endif
+
+/* ########## LOOK AT COUNTRY AND IF HAS LANGUAGE OUTSIDE SCOPE CHANGE TO MOST POPULAR ONE IN REGION ########### */
+
+if @country == "at" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
+	set @language = "de" 
+elseif @country == "be" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
+	set @language = "fr"
+elseif @country == "dk" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
+	set @language = "en"
+elseif @country == "fi" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
+	set @language = "en"
+elseif @country == "fr" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
+	set @language = "fr"
+elseif @country == "de" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
+	set @language = "de"
+elseif @country == "ie" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
+	set @language = "en"
+elseif @country == "it" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
+	set @language = "it"
+elseif @country == "lu" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
+	set @language = "fr"
+elseif @country == "nl" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
+	set @language = "en"
+elseif @country == "no" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
+	set @language = "en"
+elseif @country == "pl" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
+	set @language = "en"
+elseif @country == "pt" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
+	set @language = "en"
+elseif @country == "es" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
+	set @language = "es"
+elseif @country == "se" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
+	set @language = "en"
+elseif @country == "ch" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
+	set @language = "de"
+elseif @country == "uk" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
+	set @language = "en"
+endif
+
+/* ########## IF LANGUAGE ISNT COUNTRY SUPPORTED BY SITE ########### */
+
+if @language != "en" and
+@language != "fr" and
+@language != "de" and
+@language != "it" and
+@language != "es" then
+set @language = "en"
+endif
+
+
+
+
+/* ########## ENGLISH TEXT ########### */
+
+set @viewonline = "View Online"
+set @freeshipping = "Free Shipping*"
+set @menumens = "MEN'S"
+set @menuwomens = "WOMEN'S"
+set @menucustom = "CUSTOM"
+set @findstore = "Find Your Nearest Retailer"
+set @terms = "* Click here for free delivery legal information and limitations. Terms and conditions apply."
+set @receivebecause ="You are receiving this message because you signed up for Oakley communications."
+set @unsubhere = "Unsubscribe here."
+set @subscribedas = "You are subscribed as:"
+set @copywrite = "Copyright 2014 Oakley, Inc. All rights Reserved."
+set @privacy = "Privacy Policy."
+set @contactus = "Contact Us"
+set @viewproduct = "View Product"
+
+/* ########## FRENCH TEXT ########### */
+
+if @Language == "fr" then
+
+set @viewonline = "&Agrave; d&eacute;couvrir en ligne"
+set @freeshipping = "Livraison gratuite*"
+set @menumens = "BOUTIQUE HOMMES"
+set @menuwomens = "BOUTIQUE FEMMES"
+set @menucustom = "PERSONNALISATION"
+set @findstore = "Trouver la boutique la plus proche"
+set @terms = "*Cliquez ici pour en savoir plus sur les conditions de livraison gratuite."
+set @receivebecause ="Vous recevez ce message parce que vous avez exprim&eacute; votre int&eacute;r&ecirc;t pour les nouvelles et les offres d'Oakley."
+set @unsubhere = "Se d&eacute;sabonner."
+set @subscribedas = "Cet e-mail a &eacute;t&eacute; envoy&eacute; &agrave;"
+set @copywrite = "Copyright 2014 Oakley, Inc. Tous droits r&eacute;serv&eacute;s."
+set @privacy = "Politique de confidentialit&eacute;."
+set @contactus = "Contactex-Nous"
+set @viewproduct = "Voir le produit"
+endif
+
+/* ########## GERMAN TEXT ########### */
+
+if @Language == "de" then
+
+set @viewonline = "Online ansehen"
+set @freeshipping = "Kostenloser Versand*"
+set @menumens = "HERREN-STORE"
+set @menuwomens = "DAMEN-STORE"
+set @menucustom = "CUSTOM"
+set @findstore = "H&auml;ndlersuche"
+set @terms = "* Weitere Informationen &uuml;ber die Bedingungen f&uuml;r den kostenlosen Versand erhalten sie hier"
+set @receivebecause ="Sie erhalten diesen Newsletter, weil Sie Ihr Interesse an Nachrichten und Angeboten von Oakley best&auml;tigt haben."
+set @unsubhere = "Abbestellen."
+set @subscribedas = "Diese E-Mail wurde an"
+set @copywrite = "Copyright 2014 Oakley, Inc. Alle Rechte vorbehalten."
+set @privacy = "Datenschutzbestimmungen."
+set @contactus = "Kontakt"
+set @viewproduct = "Produkt anzeigen"
+endif
+
+/* ########## SPANISH TEXT ########### */
+
+if @Language == "es" then
+
+set @viewonline = "Desc&uacute;brela online"
+set @freeshipping = "ENV&Iacute;O GRATIS*"
+set @menumens = "TIENDA PARA HOMBRES"
+set @menuwomens = "TIENDA PARA MUJERES"
+set @menucustom = "DISE&Ntilde;O PERSONALIZADO"
+set @findstore = "Buscar el distribuidor m&aacute;s cercano"
+set @terms = "* Haga clic aqu&iacute; para obtener m&aacute;s informaci&oacute;n legal sobre las condiciones para el env&iacute;o gratuito."
+set @receivebecause ="Ha recibido este mensaje porque nos expres&oacute; su inter&eacute;s por las novedades y ofertas de Oakley."
+set @unsubhere = "Cancelar la suscripci&oacute;n."
+set @subscribedas = "Este e-mail ha sido enviado a "
+set @copywrite = "Copyright 2014 Oakley, Inc. Todos los derechos reservados."
+set @privacy = "Pol&iacute;tica de privacidad."
+set @contactus = "Cont&aacute;ctenos"
+set @viewproduct = "Ver producto"
+endif
+
+/* ########## ITALIAN TEXT ########### */
+
+if @Language == "it" then
+
+set @viewonline = "Scoprila online"
+set @freeshipping = "SPEDIZIONE GRATUITA*"
+set @menumens = "STORE UOMO"
+set @menuwomens = "STORE DONNA"
+set @menucustom = "PERSONALIZZATO"
+set @findstore = "Trova il rivenditore pi&ugrave; vicino"
+set @terms = "* Clicca qui per avere informazioni legali e sulle limitazioni alla consegna gratuita."
+set @receivebecause ="Ricevi questo messaggio perch&eacute; hai manifestato interesse per le novit&agrave; e le offerte di Oakley."
+set @unsubhere = "Cancella l'iscrizione."
+set @subscribedas = "Questa e-mail &egrave; stata inviata a "
+set @copywrite = "Copyright 2014 Oakley, Inc. Tutti i diritti riservati."
+set @privacy = "Informativa sulla privacy."
+set @contactus = "Contattaci"
+set @viewproduct = "Visualizza Prodotto"
+endif
+
+ContentAreaByName(Concat(@contentAreaPath, "variablesA"))
+]%%
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Oakley</title>
+<style type="text/css">
+.ReadMsgBody {width: 100%;}
+.ExternalClass {width: 100%;}
+</style>
+</head>
+<body style="margin: 0px; -webkit-text-size-adjust:none;" bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
+  <tr bgcolor="#000000">
+    <td align="center" valign="top" bgcolor="#ffffff"><div align="center">
+        <table align="center" width="660" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="660" colspan="6" align="center" valign="top"><table align="center" width="660" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td width="660" align="center" valign="top">
+				  
+				  <!-- header -->
+
+<table cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" width="100%" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+            <tr bgcolor="#d9d9d9">
+				<td>
+					<table cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-top:30px; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+						<tr>
+							<td align="left" valign="middle" style="font-family: Arial, sans-serif, Verdana; color: #666666; font-size: 12px;"><img border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="20" height="10" alt="">%%=v(@preheader)=%%. &nbsp;<a href="%%view_email_url%%" target="_blank" alias="%%=v(@viewonline)=%%" style="font-family: Arial, sans-serif, Verdana; color: #666666; font-size: 12px; font-weight: bold; text-decoration: none; border-bottom: 2px dotted #666666;">%%=v(@viewonline)=%%</a></td>
+							<td align="right" valign="middle" style="font:12px Arial, Helvetica, sans-serif; color:#808080; line-height:15px; mso-line-height-rule: exactly;">%%=v(@freeshipping)=%%<img border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="20" height="10" alt=""></td>
+						</tr>
+					</table>
+				</td>
+            </tr>
+
+            <tr bgcolor="#d9d9d9">
+              <td  align="center" height="20">&nbsp;</td>
+            </tr>
+                      <tr>
+                        <td width="100%" height="1" align="left" valign="top" style="font-size:0%; line-height:1px;" bgcolor="#333333"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="1" height="1" alt=""></td>
+                      </tr>
+            <tr>
+              <td align="left" bgcolor="#ffffff">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td width="30" align="center" valign="middle" style="font-size:0%;"  bgcolor="#222222"><img  alt="" src="https://image.e.oakley.com/lib/fe9b15707165077a71/m/4/20130903_ProductEductionEmail_Spacer.gif" width="30" height="1" style="display:block;"  title="" border="0" /></td>
+                  <td width="570" align="left" valign="top"  bgcolor="#222222">
+                    <table width="627" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td width="627" align="center" valign="middle" style="font-size:0%;"  bgcolor="#222222"><img  alt="" src="https://image.e.oakley.com/lib/fe9b15707165077a71/m/4/20130903_ProductEductionEmail_Spacer.gif" width="627" height="21" style="display:block;"  title="" border="0" /></td>
+                      </tr>
+                      <tr>
+                        <td width="627" align="left" valign="top" bgcolor="#222222">
+                          <table width="627" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td width="56" align="left" valign="middle" style="font-size:0%;" bgcolor="#222222"><a href="http://uk.oakley.com?cm_mmc=direct-_-sep14-_-GoLiveLogin-_-header-img-oakley-logo" target="_blank" alias="Oakley" style="font:bold 12px Arial, Helvetica, sans-serif; color:#aaaaaa; text-decoration:none;"><img  alt="Oakley" src="https://image.e.oakley.com/lib/fe9b15707165077a71/m/4/20130903_ProductEductionEmail_01.jpg" width="56" height="19" style="display:block;"  title="Oakley" border="0" /></a></td>
+                              <td width="200" align="left" valign="middle" style="font-size:0%;" bgcolor="#222222"><img  alt="" src="https://image.e.oakley.com/lib/fe9b15707165077a71/m/4/20130903_ProductEductionEmail_Spacer.gif" width="2" height="1" style="display:block;"  title="" border="0" /></td>
+                              <td width="429" align="left" valign="top"  bgcolor="#222222">
+                                <table width="389" border="0" cellspacing="0" cellpadding="0">
+                                  <tr>
+                                    <td width="389" align="right" valign="top" style="padding-right:30px; padding-top:3px;"><table align="right" border="0" cellspacing="0" cellpadding="0">
+                                              <tr style="vertical-align: middle;">
+                                                <td align="right" valign="top" style="vertical-align: middle;  font: 13px Arial, Helvetica, sans-serif; color: #999999; line-height: 13px; mso-line-height-rule: exactly;"><a href="http://uk.oakley.com/en/men?cm_mmc=direct-_-sep14-_-GoLiveLogin-_-header-txt-men" target="_blank" alias="MEN" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#aaaaaa; text-decoration:none;">MEN</a><img  alt="" src="https://image.e.oakley.com/lib/fe9b15707165077a71/m/4/20130903_ProductEductionEmail_Spacer.gif" width="23" height="1"  title="" border="0" /><a href="http://uk.oakley.com/en/women?cm_mmc=direct-_-sep14-_-GoLiveLogin-_-header-txt-women" target="_blank" alias="WOMEN" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#aaaaaa; text-decoration:none;">WOMEN</a><img  alt="" src="https://image.e.oakley.com/lib/fe9b15707165077a71/m/4/20130903_ProductEductionEmail_Spacer.gif" width="23" height="1"  title="" border="0" /><a href="http://uk.oakley.com/en/custom/category/c?cm_mmc=direct-_-sep14-_-GoLiveLogin-_-header-txt-custom" target="_blank" alias="CUSTOM" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#aaaaaa; text-decoration:none;">CUSTOM</a></td>
+                                              </tr>
+                                            </table></td>
+                                
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="570" align="center" valign="middle" style="font-size:0%;" bgcolor="#222222"><img  alt="" src="https://image.e.oakley.com/lib/fe9b15707165077a71/m/4/20130903_ProductEductionEmail_Spacer.gif" width="627" height="20" style="display:block;"  title="" border="0" /></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                          </table>
+              </td>
+            </tr>
+                     
+
+          </table>
+
+					<!-- header end -->
+
+				  </td>
+                </tr>
+              </table></td>
+          </tr>
+          
+           <tr>
+            <td colspan="6" align="left" valign="top"><a href="%%=RedirectTo(Concat('http://', @country, '.oakley.com/',@language,'/support/shipping-returns?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-header-txt-shipping'))=%%" target="_blank" alias="image"><img src="%%=Concat("https://image.e.oakley.com/lib/fe8c15707062037472/m/2/shipping_", @language, ".jpg")=%%" width=660" height="83" border="0" style="display: block; font-family: arial, helvetica, sans-serif; color: #000000; font-size: 14px; text-align:center;" alt="%%=v(@freeshipping)=%%"></a></td>          
+          </tr>
+          <tr>
+            <td colspan="6" align="left" valign="top"><a href="%%=RedirectTo(Concat('http://', @country,'.oakley.com/',@language,'/',@hero_url,'?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-top-hero'))=%%" target="_blank" alias="image"><img src="%%=Lowercase(@portfoliourl)=%%%%=Concat(@deploymentId, "_hero_", @language, ".jpg")=%%" width=660" height="%%=v(@heroHeight)=%%" border="0" style="display: block; font-family: arial, helvetica, sans-serif; color: #000000; font-size: 14px; text-align:center;" alt="%%=Uppercase(@preheader)=%%"></a></td>          
+          </tr>
+    <tr>
+                        <td width="100%" height="15" colspan="6" align="left" valign="top" bgcolor="#ffffff" style="font-size:0%;"><img style="display:block;" border="0" src="http://www.google-analytics.com/collect?v=1&tid=UA-41134917-5&cid=%%=v(@country)=%%_%%=v(@language)=%%&t=event&ec=email&ea=open&el=recipient_id&cs=%%=v(@cmName)=%%&cm=%%=v(@country)=%%_%%=v(@language)=%%&cn=%%=v(@cmName)=%%" width="1" height="1" alt=""></td>
+                      </tr>
+                   <tr>
+                     <td width="660" colspan="6" align="center" valign="top">
+                     <table align="center" border="0" cellspacing="0" cellpadding="0">
+  
+  <tr>
+    <td width="212" align="left"><a href="%%=RedirectTo(Concat('http://', @country,'.oakley.com/',@language,'/',@box1_url,'?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-content-box1'))=%%" target="_blank" alias="image"><img src="%%=Lowercase(@portfoliourl)=%%%%=Concat(@deploymentId, "_box1", ".jpg")=%%" width="212" height="150" alt="%%=v(@product1)=%%" style="display: block; font-family: arial, helvetica, sans-serif; color: #000000; font-size: 14px;"></a></td>
+    <td width="12" align="left"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="12" height="150" alt=""></td>
+    <td width="212" align="center"><a href="%%=RedirectTo(Concat('http://', @country,'.oakley.com/',@language,'/',@box2_url,'?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-content-box2'))=%%" target="_blank" alias="image"><img src="%%=Lowercase(@portfoliourl)=%%%%=Concat(@deploymentId, "_box2", ".jpg")=%%" width="212" height="150" alt="%%=v(@product2)=%%" style="display: block; font-family: arial, helvetica, sans-serif; color: #000000; font-size: 14px"></a></td>
+    <td width="12" align="left"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="12" height="150" alt=""></td>
+    <td width="212" align="right"><a href="%%=RedirectTo(Concat('http://', @country,'.oakley.com/',@language,'/',@box3_url,'?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-content-box3'))=%%" target="_blank" alias="image"><img src="%%=Lowercase(@portfoliourl)=%%%%=Concat(@deploymentId, "_box3", ".jpg")=%%" width="212" height="150" alt="%%=v(@product3)=%%" style="display: block; font-family: arial, helvetica, sans-serif; color: #000000; font-size: 14px;"></a></td>
+  </tr>
+    <tr>
+    <td width="214" bgcolor="#f1f1f1" valign="top" align="center" style="padding-top: 18px;"><a href="%%=RedirectTo(Concat(@box1_url))=%%" target="_blank" alias="Tile 1" style="font-family: Arial, Verdana, sans-serif; color: #333333; font-size: 15px; line-height: 17px; font-weight: bold; text-decoration: none;">%%=v(@product1)=%%</a></td>
+    <td width="12" align="left"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="12" height="10" alt=""></td>
+    <td width="214" bgcolor="#f1f1f1" valign="top" align="center" style="padding-top: 18px;"><a href="%%=RedirectTo(Concat(@box2_url))=%%" target="_blank" alias="Tile 1" style="font-family: Arial, Verdana, sans-serif; color: #333333; font-size: 15px; line-height: 17px; font-weight: bold; text-decoration: none;">%%=v(@product2)=%%</a></td>
+    <td width="12" align="left"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="12" height="10" alt=""></td>
+    <td width="214" bgcolor="#f1f1f1" valign="top" align="center" style="padding-top: 18px;"><a href="%%=RedirectTo(Concat(@box3_url))=%%" target="_blank" alias="Tile 1" style="font-family: Arial, Verdana, sans-serif; color: #333333; font-size: 15px; line-height: 17px; font-weight: bold; text-decoration: none;">%%=v(@product3)=%%</a></td>
+  </tr>
+    <tr>
+    <td bgcolor="#f1f1f1" width="214" valign="top" align="center" style="font-family: Arial, Verdana, sans-serif; color: #990000; line-height: 25px; font-size: 12px; text-decoration: none; padding: 0px 10px 15px 10px;"><a href="%%=RedirectTo(Concat(@box1_url))=%%" target="_blank" alias="Watch Now" style="font-family: Arial, Verdana, sans-serif; color:#990000; font-size: 12px; font-weight: bold; line-height: 25px; text-decoration: none;text-transform:uppercase;">%%=v(@viewproduct)=%%</a></td>
+    <td width="12" align="left"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="12" height="10" alt=""></td>
+    <td bgcolor="#f1f1f1" width="214" valign="top" align="center" style="font-family: Arial, Verdana, sans-serif; color: #990000; line-height: 25px; font-size: 12px; text-decoration: none; padding: 0px 10px 15px 10px;"><a href="%%=RedirectTo(Concat(@box2_url))=%%" target="_blank" alias="Watch Now" style="font-family: Arial, Verdana, sans-serif; color:#990000; font-size: 12px; font-weight: bold; line-height: 25px; text-decoration: none;text-transform:uppercase;">%%=v(@viewproduct)=%%</a></td>
+    <td width="12" align="left"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="12" height="10" alt=""></td>
+    <td bgcolor="#f1f1f1" width="214" valign="top" align="center" style="font-family: Arial, Verdana, sans-serif; color: #990000; line-height: 25px; font-size: 12px; text-decoration: none; padding: 0px 10px 15px 10px;"><a href="%%=RedirectTo(Concat(@box3_url))=%%" target="_blank" alias="Watch Now" style="font-family: Arial, Verdana, sans-serif; color:#990000; font-size: 12px; font-weight: bold; line-height: 25px; text-decoration: none; text-transform:uppercase;">%%=v(@viewproduct)=%%</a></td>
+  </tr>
+ 
+            </table>
+  </td>
+    <tr>
+                        <td width="100%" height="15" colspan="6" align="left" valign="top" bgcolor="#ffffff" style="font-size:0%;"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="1" height="1" alt=""></td>
+                      </tr>
+                          <tr>
+                        <td width="100%" height="23" colspan="6" align="left" valign="top" bgcolor="#ffffff" style="font-size:0%;"><table width="660" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td width="191" height="23"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="191" height="23" alt=""></td>
+                            <td width="277" height="23"><img style="display:block;" border="0" src="%%=Concat("https://image.e.oakley.com/lib/fe8c15707062037472/m/2/connect_", @language, ".jpg")=%%" width="277" height="23" alt=""></td>
+                            <td width="192" height="23"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="192" height="23" alt=""></td>
+                          </tr>
+                        </table></td>
+                      </tr>
+                       <tr>
+                         <td width="248" height="44" align="left" valign="top" style="font-size:0%;" bgcolor="#ffffff">
+                       </td>
+                         <td width="42" align="left" valign="top" style="font-size:0%;" bgcolor="#ffffff"><a href="http://www.facebook.com/oakleyeurope?cm_mmc=direct-_-sep14-_-GoLiveLogin-_-footer-txt-facebook" target="_blank" alias="facebook"><img  alt="f" src="https://image.e.oakley.com/lib/fe9b15707165077a71/m/5/201408_GoLive_Foot1_05.jpg" width="42" height="44" style="display:block;"  title="" border="0" /></a></td>
+                         <td width="41" align="left" valign="top" style="font-size:0%;" bgcolor="#ffffff"><a href="http://twitter.com/#!/oakleyeurope?cm_mmc=direct-_-sep14-_-GoLiveLogin-_-footer-txt-twitter" target="_blank" alias="twitter"><img  alt="t" src="https://image.e.oakley.com/lib/fe9b15707165077a71/m/5/201408_GoLive_Foot1_06.jpg" width="41" height="44" style="display:block;"  title="" border="0" /></a></td>
+                         <td width="40" align="left" valign="top" style="font-size:0%;" bgcolor="#ffffff"><a href="http://www.youtube.com/Oakley?cm_mmc=direct-_-sep14-_-GoLiveLogin-_-footer-txt-youtube" target="_blank" alias="youtube"><img  alt="y" src="https://image.e.oakley.com/lib/fe9b15707165077a71/m/5/201408_GoLive_Foot1_07.jpg" width="40" height="44" style="display:block;"  title="" border="0" /></a></td>
+                         <td width="41" align="left" valign="top" style="font-size:0%;" bgcolor="#ffffff"><a href="http://www.instagram.com/OakleyEurope?cm_mmc=direct-_-sep14-_-GoLiveLogin-_-footer-txt-instagram" target="_blank" alias="instagram"><img  alt="i" src="https://image.e.oakley.com/lib/fe9b15707165077a71/m/5/201408_GoLive_Foot1_08.jpg" width="41" height="44" style="display:block;"  title="" border="0" /></a></td>
+                         <td width="248" align="left" valign="top" style="font-size:0%;" bgcolor="#ffffff"></td>
+                      </tr>
+                       <tr>
+                         <td width="100%" height="15" colspan="6" align="left" valign="top" bgcolor="#ffffff" style="font-size:0%;"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="1" height="1" alt=""></td>
+                      </tr>
+              <tr>
+            <td width="660" colspan="6" align="center" valign="top">
+            <table align="center" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td width="660" align="center" valign="top">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0"> 
+                      <tr>
+                        <td width="660" height="38" align="center" valign="middle">
+                        
+						<!-- footer -->
+<table cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+      <tr>
+        <td width="660" align="left" valign="top">
+          <table cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+                          <tr>
+                            <td width="660" align="left" valign="top">
+                                      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td width="660" height="1" align="left" valign="top" style="font-size:0%; line-height:1px;" bgcolor="#444444"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="1" height="1" alt=""></td>
+                      </tr>
+                      <tr bgcolor="#222222">
+                        <td width="660" height="38" align="left" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              
+                              <td width="220" align="center" valign="middle" style="font:13px Arial, Helvetica, sans-serif; color:#aa0000; line-height:15px; mso-line-height-rule: exactly;"><a href="%%=RedirectTo(Concat('http://', @country, '.oakley.com/?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-footer-txt-oakley'))=%%" target="_blank" alias="Oakley.com" style="color:#aa0000; text-decoration:none;">Oakley.com</a></td>
+                              <td width="220" align="center" valign="middle" style="font:13px Arial, Helvetica, sans-serif; color:#aa0000; line-height:15px; mso-line-height-rule: exactly;"><a href="%%=RedirectTo(Concat('http://', @country, '.oakley.com/',@language,'/store-finder?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-footer-txt-view-all-oakley-stores-near-you'))=%%" target="_blank" alias="footer-dealers" style="color:#aa0000; text-decoration:none;">%%=v(@findstore)=%%</a></td>
+                              <td width="220" align="center" valign="middle" style="font:13px Arial, Helvetica, sans-serif; color:#aa0000; line-height:15px; mso-line-height-rule: exactly;"><span class="appleLinks"><a href="%%=RedirectTo(Concat('http://', @country, '.oakley.com/',@language,'/contact?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-footer-txt-contactus'))=%%" target="_blank" alias="footer-dealers" style="color:#aa0000; text-decoration:none;">%%=v(@contactus)=%%</a></span></td>
+                              </tr>
+                          </table></td>
+                      </tr>
+                         <tr>
+      
+          </tr>
+                      <tr>
+                        <td width="660" height="1" align="left" valign="top" style="font-size:0%; line-height:1px;" bgcolor="#444444"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="1" height="1" alt=""></td>
+                      </tr>
+                    </table>
+                                                        <table width="660" border="0" cellspacing="0" cellpadding="0">
+                                                          <tr>
+                                                            <td width="30" style="font-family:Univers, Arial, Helvetica, sans-serif; font-size:12px; color:#222222" bgcolor="#f4f4f4"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="1" height="1" alt=""></td>
+                                                                  <td width="600" height="40" align="center" valign="top" style="font-family:Univers, Arial, Helvetica, sans-serif; font-size:14; color:#222222" bgcolor="#f4f4f4"><a href="http://uk.oakley.com?cm_mmc=direct-_-sep14-_-GoLiveLogin-_-footer-txt-oakley" target="_blank" alias="O" style="font-family: Verdana, Arial, Helvetica, Sans-Serif; color: #808080; font-size: 11px; text-decoration: underline;"><img src="https://image.e.oakley.com/lib/fe9b15707165077a71/m/5/201408_GoLive_FooterLogo.jpg" width="600" height="40" style="display:block" border="0" alt="O"></a></td>
+                                                            <td width="30" style="font-family:Univers, Arial, Helvetica, sans-serif; font-size:12px; color:#222222" bgcolor="#f4f4f4"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="1" height="1" alt=""></td>
+                                                          </tr>
+                                                       
+                                                        </table>
+                            </td>
+  </tr>
+  
+                          <tr>
+                            <td align="center" valign="top"  style="font-family:Univers, Arial, Helvetica, sans-serif; font-size:12px; color:#222222" bgcolor="#f4f4f4">%%=v(@copywrite)=%%</td>
+                          </tr>
+                            <tr>
+                            <td align="center" valign="top"  style="font-family:Univers, Arial, Helvetica, sans-serif; font-size:12px; color:#222222" bgcolor="#f4f4f4"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="1" height="10" alt=""></td>
+                          </tr>
+                          <tr>
+            <td width="660" align="center" valign="top" style=" font:11px Verdana, Geneva, sans-serif; color:#505050; line-height:16px; mso-line-height-rule: exactly; padding-top:26px; padding-bottom:55px;background-color:#d9d9d9;" bgcolor="#d9d9d9"><span class="appleLinks">
+             <a href="%%=RedirectTo(Concat('http://', @country, '.oakley.com/',@language,'/support/shipping-returns?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-footer-txt-shipping'))=%%" target="_blank" alias="Terms and conditions apply" style="color:#505050; text-decoration:none;"><span style="font:12px Arial, Helvetica, sans-serif; color:#808080; line-height:15px; mso-line-height-rule: exactly;">%%=v(@terms)=%%</span></a><br>
+              <br>
+              <span style="font:12px Arial, Helvetica, sans-serif; color:#808080; line-height:15px; mso-line-height-rule: exactly;">%%=v(@receivebecause)=%% </span><a href="%%=RedirectTo(Concat('http://', @country, '.oakley.com/',@language,'/preferences/customer?email=',@emailaddr,'&cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-footer-txt-unsubscribe'))=%%" target="_blank" alias="Unsubscribe here" style="color:#505050; text-decoration:none;"><span style="font:12px Arial, Helvetica, sans-serif; color:#808080; line-height:15px; mso-line-height-rule: exactly;">%%=v(@unsubhere)=%%</span></a> <br>
+              <span style="font:12px Arial, Helvetica, sans-serif; color:#808080; line-height:15px; mso-line-height-rule: exactly;">%%=v(@subscribedas)=%%</span><a href="mailto:%%emailaddr%%" target="_blank" alias="%%emailaddr%%" style="color:#505050; text-decoration:none;"> %%emailaddr%%</a>.<br>
+              <br>
+              <a href="%%=RedirectTo(Concat('http://', @country, '.oakley.com/',@language,'/legal/intellectual-property?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-footer-text-copyright'))=%%" target="_blank" alias="Copyright" style="color:#505050; text-decoration:none;">%%=v(@copywrite)=%%</a> <a href="%%=RedirectTo(Concat('http://', @country,'.oakley.com/',@language,'/legal/privacy-policy?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-footer-txt-privacy-policy'))=%%" target="_blank" alias="Privacy Policy" style="color:#505050; text-decoration:none;"><strong>%%=v(@privacy)=%%</strong></a></span></td>
+          </tr>
+        </table>
+        </td>
+      </tr>
+    </table>		
+						<!-- footer end -->
+						
+						
+						</td>
+                      </tr>
+                    </table></td>
+                </tr>
+              </table></td>
+          </tr>
+        </table>
+    </div></td>
+  </tr>
+</table>
+<custom name="opencounter" type="tracking"> 
+</body>
+</html>
