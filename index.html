@@ -1,6 +1,6 @@
 %%[ Var @language, @country, @subject, @emailaddr,
 
-/* ########## EDIT THIS PARAMETER ########### */
+/* ########## EDIT THIS PARAMETER! ########### */
 /* ### */                              /* ### */
 /* ### */  set @deploymentId = 201419  /* ### */
 /* ### */                              /* ### */
@@ -15,8 +15,7 @@ set @year = Substring(@deploymentId, 1, 4)
 set @number= Substring(@deploymentId, 5, 6)
 set @contentAreaPath = Concat("my contents\Direct Sales\", @year, "\", @number, "\")
 
-
-/* ##########CHANGE VALID COUNTRYS TO VALID 2 LETTER CODES ########### */
+/* #########CHANGE VALID COUNTRYS TO VALID 2 LETTER CODES ########### */
 
 if @country == "belgium" then
 set @country = "be"
@@ -146,7 +145,7 @@ endif
 /* ########## LOOK AT COUNTRY AND IF HAS LANGUAGE OUTSIDE SCOPE CHANGE TO MOST POPULAR ONE IN REGION ########### */
 
 if @country == "at" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
-	set @language = "de" 
+	set @language = "de"
 elseif @country == "be" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
 	set @language = "fr"
 elseif @country == "dk" and (@language != "en" and @language != "de" and @language != "fr" and @language != "it" and @language != "es") then
@@ -312,7 +311,7 @@ ContentAreaByName(Concat(@contentAreaPath, "variablesA"))
             <td width="660" colspan="6" align="center" valign="top"><table align="center" width="660" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                   <td width="660" align="center" valign="top">
-				  
+
 				  <!-- header -->
 
 <table cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" width="100%" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
@@ -357,7 +356,7 @@ ContentAreaByName(Concat(@contentAreaPath, "variablesA"))
                                                 <td align="right" valign="top" style="vertical-align: middle;  font: 13px Arial, Helvetica, sans-serif; color: #999999; line-height: 13px; mso-line-height-rule: exactly;"><a href="http://uk.oakley.com/en/men?cm_mmc=direct-_-sep14-_-GoLiveLogin-_-header-txt-men" target="_blank" alias="MEN" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#aaaaaa; text-decoration:none;">MEN</a><img  alt="" src="https://image.e.oakley.com/lib/fe9b15707165077a71/m/4/20130903_ProductEductionEmail_Spacer.gif" width="23" height="1"  title="" border="0" /><a href="http://uk.oakley.com/en/women?cm_mmc=direct-_-sep14-_-GoLiveLogin-_-header-txt-women" target="_blank" alias="WOMEN" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#aaaaaa; text-decoration:none;">WOMEN</a><img  alt="" src="https://image.e.oakley.com/lib/fe9b15707165077a71/m/4/20130903_ProductEductionEmail_Spacer.gif" width="23" height="1"  title="" border="0" /><a href="http://uk.oakley.com/en/custom/category/c?cm_mmc=direct-_-sep14-_-GoLiveLogin-_-header-txt-custom" target="_blank" alias="CUSTOM" style="font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#aaaaaa; text-decoration:none;">CUSTOM</a></td>
                                               </tr>
                                             </table></td>
-                                
+
                                 </table>
                               </td>
                             </tr>
@@ -373,7 +372,7 @@ ContentAreaByName(Concat(@contentAreaPath, "variablesA"))
                           </table>
               </td>
             </tr>
-                     
+
 
           </table>
 
@@ -383,12 +382,12 @@ ContentAreaByName(Concat(@contentAreaPath, "variablesA"))
                 </tr>
               </table></td>
           </tr>
-          
+
            <tr>
-            <td colspan="6" align="left" valign="top"><a href="%%=RedirectTo(Concat('http://', @country, '.oakley.com/',@language,'/support/shipping-returns?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-header-txt-shipping'))=%%" target="_blank" alias="image"><img src="%%=Concat("https://image.e.oakley.com/lib/fe8c15707062037472/m/2/shipping_", @language, ".jpg")=%%" width=660" height="83" border="0" style="display: block; font-family: arial, helvetica, sans-serif; color: #000000; font-size: 14px; text-align:center;" alt="%%=v(@freeshipping)=%%"></a></td>          
+            <td colspan="6" align="left" valign="top"><a href="%%=RedirectTo(Concat('http://', @country, '.oakley.com/',@language,'/support/shipping-returns?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-header-txt-shipping'))=%%" target="_blank" alias="image"><img src="%%=Concat("https://image.e.oakley.com/lib/fe8c15707062037472/m/2/shipping_", @language, ".jpg")=%%" width=660" height="83" border="0" style="display: block; font-family: arial, helvetica, sans-serif; color: #000000; font-size: 14px; text-align:center;" alt="%%=v(@freeshipping)=%%"></a></td>
           </tr>
           <tr>
-            <td colspan="6" align="left" valign="top"><a href="%%=RedirectTo(Concat('http://', @country,'.oakley.com/',@language,'/',@hero_url,'?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-top-hero'))=%%" target="_blank" alias="image"><img src="%%=Lowercase(@portfoliourl)=%%%%=Concat(@deploymentId, "_hero_", @language, ".jpg")=%%" width=660" height="%%=v(@heroHeight)=%%" border="0" style="display: block; font-family: arial, helvetica, sans-serif; color: #000000; font-size: 14px; text-align:center;" alt="%%=Uppercase(@preheader)=%%"></a></td>          
+            <td colspan="6" align="left" valign="top"><a href="%%=RedirectTo(Concat('http://', @country,'.oakley.com/',@language,'/',@hero_url,'?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-top-hero'))=%%" target="_blank" alias="image"><img src="%%=Lowercase(@portfoliourl)=%%%%=Concat(@deploymentId, "_hero_", @language, ".jpg")=%%" width=660" height="%%=v(@heroHeight)=%%" border="0" style="display: block; font-family: arial, helvetica, sans-serif; color: #000000; font-size: 14px; text-align:center;" alt="%%=Uppercase(@preheader)=%%"></a></td>
           </tr>
     <tr>
                         <td width="100%" height="15" colspan="6" align="left" valign="top" bgcolor="#ffffff" style="font-size:0%;"><img style="display:block;" border="0" src="http://www.google-analytics.com/collect?v=1&tid=UA-41134917-5&cid=%%=v(@country)=%%_%%=v(@language)=%%&t=event&ec=email&ea=open&el=recipient_id&cs=%%=v(@cmName)=%%&cm=%%=v(@country)=%%_%%=v(@language)=%%&cn=%%=v(@cmName)=%%" width="1" height="1" alt=""></td>
@@ -396,7 +395,7 @@ ContentAreaByName(Concat(@contentAreaPath, "variablesA"))
                    <tr>
                      <td width="660" colspan="6" align="center" valign="top">
                      <table align="center" border="0" cellspacing="0" cellpadding="0">
-  
+
   <tr>
     <td width="212" align="left"><a href="%%=RedirectTo(Concat('http://', @country,'.oakley.com/',@language,'/',@box1_url,'?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-content-box1'))=%%" target="_blank" alias="image"><img src="%%=Lowercase(@portfoliourl)=%%%%=Concat(@deploymentId, "_box1", ".jpg")=%%" width="212" height="150" alt="%%=v(@product1)=%%" style="display: block; font-family: arial, helvetica, sans-serif; color: #000000; font-size: 14px;"></a></td>
     <td width="12" align="left"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="12" height="150" alt=""></td>
@@ -418,7 +417,7 @@ ContentAreaByName(Concat(@contentAreaPath, "variablesA"))
     <td width="12" align="left"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="12" height="10" alt=""></td>
     <td bgcolor="#f1f1f1" width="214" valign="top" align="center" style="font-family: Arial, Verdana, sans-serif; color: #990000; line-height: 25px; font-size: 12px; text-decoration: none; padding: 0px 10px 15px 10px;"><a href="%%=RedirectTo(Concat(@box3_url))=%%" target="_blank" alias="Watch Now" style="font-family: Arial, Verdana, sans-serif; color:#990000; font-size: 12px; font-weight: bold; line-height: 25px; text-decoration: none; text-transform:uppercase;">%%=v(@viewproduct)=%%</a></td>
   </tr>
- 
+
             </table>
   </td>
     <tr>
@@ -450,10 +449,10 @@ ContentAreaByName(Concat(@contentAreaPath, "variablesA"))
             <table align="center" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                   <td width="660" align="center" valign="top">
-                  <table width="100%" border="0" cellspacing="0" cellpadding="0"> 
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
                       <tr>
                         <td width="660" height="38" align="center" valign="middle">
-                        
+
 						<!-- footer -->
 <table cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
       <tr>
@@ -468,7 +467,7 @@ ContentAreaByName(Concat(@contentAreaPath, "variablesA"))
                       <tr bgcolor="#222222">
                         <td width="660" height="38" align="left" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
-                              
+
                               <td width="220" align="center" valign="middle" style="font:13px Arial, Helvetica, sans-serif; color:#aa0000; line-height:15px; mso-line-height-rule: exactly;"><a href="%%=RedirectTo(Concat('http://', @country, '.oakley.com/?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-footer-txt-oakley'))=%%" target="_blank" alias="Oakley.com" style="color:#aa0000; text-decoration:none;">Oakley.com</a></td>
                               <td width="220" align="center" valign="middle" style="font:13px Arial, Helvetica, sans-serif; color:#aa0000; line-height:15px; mso-line-height-rule: exactly;"><a href="%%=RedirectTo(Concat('http://', @country, '.oakley.com/',@language,'/store-finder?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-footer-txt-view-all-oakley-stores-near-you'))=%%" target="_blank" alias="footer-dealers" style="color:#aa0000; text-decoration:none;">%%=v(@findstore)=%%</a></td>
                               <td width="220" align="center" valign="middle" style="font:13px Arial, Helvetica, sans-serif; color:#aa0000; line-height:15px; mso-line-height-rule: exactly;"><span class="appleLinks"><a href="%%=RedirectTo(Concat('http://', @country, '.oakley.com/',@language,'/contact?cm_mmc=direct-_-',v(@cmDate),'-_-',v(@cmName),'-_-footer-txt-contactus'))=%%" target="_blank" alias="footer-dealers" style="color:#aa0000; text-decoration:none;">%%=v(@contactus)=%%</a></span></td>
@@ -476,7 +475,7 @@ ContentAreaByName(Concat(@contentAreaPath, "variablesA"))
                           </table></td>
                       </tr>
                          <tr>
-      
+
           </tr>
                       <tr>
                         <td width="660" height="1" align="left" valign="top" style="font-size:0%; line-height:1px;" bgcolor="#444444"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="1" height="1" alt=""></td>
@@ -488,11 +487,11 @@ ContentAreaByName(Concat(@contentAreaPath, "variablesA"))
                                                                   <td width="600" height="40" align="center" valign="top" style="font-family:Univers, Arial, Helvetica, sans-serif; font-size:14; color:#222222" bgcolor="#f4f4f4"><a href="http://uk.oakley.com?cm_mmc=direct-_-sep14-_-GoLiveLogin-_-footer-txt-oakley" target="_blank" alias="O" style="font-family: Verdana, Arial, Helvetica, Sans-Serif; color: #808080; font-size: 11px; text-decoration: underline;"><img src="https://image.e.oakley.com/lib/fe9b15707165077a71/m/5/201408_GoLive_FooterLogo.jpg" width="600" height="40" style="display:block" border="0" alt="O"></a></td>
                                                             <td width="30" style="font-family:Univers, Arial, Helvetica, sans-serif; font-size:12px; color:#222222" bgcolor="#f4f4f4"><img style="display:block;" border="0" src="http://image.e.oakley.com/lib/fe9b15707165077a71/m/1/spacer.gif" width="1" height="1" alt=""></td>
                                                           </tr>
-                                                       
+
                                                         </table>
                             </td>
   </tr>
-  
+
                           <tr>
                             <td align="center" valign="top"  style="font-family:Univers, Arial, Helvetica, sans-serif; font-size:12px; color:#222222" bgcolor="#f4f4f4">%%=v(@copywrite)=%%</td>
                           </tr>
@@ -511,10 +510,10 @@ ContentAreaByName(Concat(@contentAreaPath, "variablesA"))
         </table>
         </td>
       </tr>
-    </table>		
+    </table>
 						<!-- footer end -->
-						
-						
+
+
 						</td>
                       </tr>
                     </table></td>
@@ -525,6 +524,6 @@ ContentAreaByName(Concat(@contentAreaPath, "variablesA"))
     </div></td>
   </tr>
 </table>
-<custom name="opencounter" type="tracking"> 
+<custom name="opencounter" type="tracking">
 </body>
 </html>
